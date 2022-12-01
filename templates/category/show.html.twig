@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All programs
+{% block title %}série
 {% endblock %}
 
 {% block body %}
@@ -18,4 +18,8 @@
 		</div>
 
 	{% endfor %}
+
+	<a href="{{ path('category_index') }}">
+		Retour à la liste des catégories
+	</a>
 {% endblock %}
