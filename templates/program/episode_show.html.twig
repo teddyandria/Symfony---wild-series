@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}| Épisodes
+{% endblock %}
+
+{% block body %}
+	<div class="media">
+		<h1 class="p-4 text-center">{{'Épisode #' ~ episode.number ~ ' - ' ~ episode.title}}</h1>
+		<h2 class="text-dark">{{program.title}}</h2>
+		<h3 class="text-dark">{{'Saison #' ~ season.number}}</h3>
+		<p class="text-dark">{{episode.synopsis}}</p>
+	</div>
+	<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
+{% endblock %}
