@@ -32,6 +32,8 @@ class ProgramController extends AbstractController
     #[Route('/new', name: 'new')]
     public function new(Request $request, ProgramRepository $categoryRepository): Response
     {
+
+
         // Create a new Category Object
         $program = new Program();
         // Create the associated Form
@@ -39,7 +41,7 @@ class ProgramController extends AbstractController
         // Get data from HTTP request
         $form->handleRequest($request);
         // Was the form submitted ?
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $categoryRepository->save($program, true);
             return $this->redirectToRoute('program_index');
