@@ -12,7 +12,9 @@ use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 #[Route('/program', name: 'program_')]
@@ -44,10 +46,8 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $categoryRepository->save($program, true);
+            $this->addFlash('success', 'Une nouvelle série à été créé');
             return $this->redirectToRoute('program_index');
-            // Deal with the submitted data
-            // For example : persiste & flush the entity
-            // And redirect to a route that display the result
         }
 
         // Render the form
