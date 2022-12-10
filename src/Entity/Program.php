@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
-#[UniqueEntity('title')]
+#[UniqueEntity('title',  message: "Ce titre existe déjà")]
 class Program
 {
     #[ORM\Id]
