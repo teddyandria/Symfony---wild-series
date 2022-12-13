@@ -2,25 +2,31 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Program;
+use App\DataFixtures\CategoryFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const PROGRAM_NUMBER = 3;
+
 
     public function load(ObjectManager $manager)
     {
-        foreach (CategoryFixtures::CATEGORIES as $categoryKey => $categoryTitle) {
-            for ($i = 0; $i < 3; $i++) {
+        $faker = Factory::create();
+        $numberOfProgram = self::PROGRAM_NUMBER;
+        foreach (CategoryFixtures::CATEGORIES as $categoryName) {
+            for ($i = 1; $i <= $numberOfProgram; $i++) {
                 $program = new Program();
-                $program->setTitle('Série stylée');
+                $program->setTitle($faker->sentence(3, true));
                 $program->setSynopsis('Synopsis de la série');
-                $category = $this->getReference('category_' . $categoryKey);
-                $program->setCategory($category);
+                $this->addReference('category_' . $categoryName . '_program_' . $i, $program);
+                $program->setCategory($this->getReference('category_' . $categoryName));
+
                 $manager->persist($program);
-                $this->addReference('category_' . $categoryKey . '_program_' . $i, $program);
             }
         }
         $manager->flush();

@@ -11,13 +11,16 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class SeasonFixtures extends Fixture implements DependentFixtureInterface
 {
 
+    public const SEASON_NUMBER = 7;
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
+        $numberOfProgram = ProgramFixtures::PROGRAM_NUMBER;
+        $numberOfSeason = self::SEASON_NUMBER;
 
-        foreach (CategoryFixtures::CATEGORIES as $categoryKey => $categoryName) {
-            for ($i = 0; $i < 3; $i++) { //1 boucle pour créer 5 séries d'un coup
-                for ($j = 0; $j <= 5; $j++) { // 5 saisons par série
+        foreach (CategoryFixtures::CATEGORIES as $categoryKey) {
+            for ($i = 1; $i < $numberOfProgram; $i++) { //1 boucle pour créer 5 séries d'un coup
+                for ($j = 1; $j <= $numberOfSeason; $j++) { // 5 saisons par série
                     $season = new Season();
                     $season->setNumber($j);
                     $season->setYear($faker->year());
