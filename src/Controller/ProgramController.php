@@ -57,7 +57,7 @@ class ProgramController extends AbstractController
     }
 
 
-    #[Route('show/{id}', requirements: ['id' => '\d+'], methods: ['GET'], name: 'show')]
+    #[Route('/{id}', requirements: ['id' => '\d+'], methods: ['GET'], name: 'show')]
     public function show(Program $program): Response
     {
 
@@ -79,10 +79,10 @@ class ProgramController extends AbstractController
 
     #[Route('/{program}/season/{season}/episode/{episode}', requirements: ['id' => '\d+'], methods: ['GET'], name: 'episode_show')]
 
-    public function showEpisode(Program $programId, Season $seasonId, Episode $episodeId)
+    public function showEpisode(Program $program, Season $seasonId, Episode $episodeId)
     {
         return $this->render('program/episode_show.html.twig', [
-            'program' => $programId,
+            'program' => $program,
             'season' => $seasonId,
             'episode' => $episodeId,
         ]);
