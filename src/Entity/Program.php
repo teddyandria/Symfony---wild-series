@@ -44,9 +44,11 @@ class Program
     #[ORM\ManyToMany(targetEntity: Actor::class, mappedBy: 'programs')]
     private Collection $actors;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
-        $this->number = new ArrayCollection();
         $this->seasons = new ArrayCollection();
         $this->actors = new ArrayCollection();
     }
@@ -107,36 +109,6 @@ class Program
     /**
      * @return Collection<int, Season>
      */
-    public function getNumber(): Collection
-    {
-        return $this->number;
-    }
-
-    public function addNumber(Season $number): self
-    {
-        if (!$this->number->contains($number)) {
-            $this->number->add($number);
-            $number->setProgram($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNumber(Season $number): self
-    {
-        if ($this->number->removeElement($number)) {
-            // set the owning side to null (unless already changed)
-            if ($number->getProgram() === $this) {
-                $number->setProgram(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Season>
-     */
     public function getSeasons(): Collection
     {
         return $this->seasons;
@@ -187,6 +159,18 @@ class Program
         if ($this->actors->removeElement($actor)) {
             $actor->removeProgram($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

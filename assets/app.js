@@ -12,3 +12,7 @@ import './styles/app.scss';
 import './bootstrap';
 
 console.log('Hello Webpack Encore !');
+
+document.querySelector("#retrobg-sun").onclick = () => {
+    document.querySelector("#retrobg").classList.toggle("retrobg-shutdown");
+};

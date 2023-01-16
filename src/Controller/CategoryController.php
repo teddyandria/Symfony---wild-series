@@ -52,17 +52,15 @@ class CategoryController extends AbstractController
     {
 
         $category = $categoryRepository->findOneBy(['name' => $categoryName]);
+        $programs = $programRepository->findBy(['category' => $category], ['id' => 'DESC'],);
 
         if (!$category) {
             throw $this->createNotFoundException(
                 'Aucune catégorie nommé : ' . $categoryName
             );
         }
-
-        $categoryId = $category->getId();
-        $programs = $programRepository->findBy(['category' => $categoryId], ['id' => 'DESC'],);
-
         return $this->render('category/show.html.twig', [
+            'category' => $category,
             'programs' => $programs,
         ]);
     }
